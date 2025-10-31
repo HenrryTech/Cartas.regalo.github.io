@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorpresita</title>
+    <style>
+        /* Fondo animado romántico: gradiente + corazones flotantes */
+
+:root{
+    --accent-1: #ff9a9e;
+    --accent-2: #fecfef;
+    --accent-3: #f6d365;
+    --card-bg: rgba(255,255,255,0.18);
+    --card-border: rgba(255,255,255,0.28);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+    margin:0;
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    overflow:hidden;
+    color:#201f1f;
+    /* animated gradient */
+    background: linear-gradient(120deg, var(--accent-1) 0%, var(--accent-2) 50%, var(--accent-3) 100%);
+    background-size: 300% 300%;
+    animation: gradientShift 12s ease-in-out infinite;
+    position:relative;
+}
+
+/* moving gradient */
+@keyframes gradientShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* floating hearts layers using pseudo-elements */
+body::before,
+body::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.75;
+    background-repeat: repeat;
+}
+
+/* small pink hearts */
+body::before{
+    /* small heart SVG encoded (pink) */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23ff6b81' d='M12 21s-7.5-4.9-9-7.1C1.3 11.9 2 7.6 5.4 6 7.1 5.2 9.4 5.6 11 7c1.6-1.4 3.9-1.8 5.6-1 3.4 1.6 4.1 5.9 2.4 7.9-1.5 2.2-9 7.1-9 7.1z'/></svg>");
+    background-size: 56px 56px;
+    animation: floatHearts1 20s linear infinite;
+    opacity:0.55;
+}
+
+/* bigger semi-transparent hearts */
+body::after{
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23ffd1e3' d='M12 21s-7.5-4.9-9-7.1C1.3 11.9 2 7.6 5.4 6 7.1 5.2 9.4 5.6 11 7c1.6-1.4 3.9-1.8 5.6-1 3.4 1.6 4.1 5.9 2.4 7.9-1.5 2.2-9 7.1-9 7.1z'/></svg>");
+    background-size: 120px 120px;
+    animation: floatHearts2 28s linear infinite reverse;
+    opacity:0.32;
+}
+
+/* heart motion: shift background-position to simulate floating */
+@keyframes floatHearts1{
+  0%{background-position:0 0; transform: translateY(0)}
+  50%{background-position:800px -400px; transform: translateY(-20px)}
+  100%{background-position:1600px 0; transform: translateY(0)}
+}
+@keyframes floatHearts2{
+  0%{background-position:0 0; transform: translateY(0)}
+  50%{background-position:-800px 400px; transform: translateY(30px)}
+  100%{background-position:-1600px 0; transform: translateY(0)}
+}
+
+/* central card style to show tu sorpresa */
+div{
+    position: relative;
+    z-index: 2;
+    max-width: 420px;
+    width: calc(100% - 40px);
+    padding: 28px;
+    border-radius: 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+    backdrop-filter: blur(6px) saturate(120%);
+    text-align:center;
+}
+
+/* heading + image */
+h1{margin:0 0 12px 0; font-size:1.8rem; letter-spacing:0.4px}
+a img{
+    max-width:3rem;
+    width:60%;
+    height:auto;
+    display:block;
+    margin:12px auto 0;
+    border-radius:12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    transition: transform .35s cubic-bezier(.2,.9,.2,1);
+}
+a img:hover{ transform: translateY(-6px) scale(1.03); }
+
+/* small responsive tweaks */
+@media (max-width:420px){
+    h1{font-size:1.3rem}
+    body::before{background-size:44px 44px}
+}
+
+
+    </style>
+</head>
+<body>
+    
+    <div>
+        <h1>¡Te enviaron un regalo!</h1>
+        <a href="/2da.html" target="_blank" rel="noopener noreferrer">
+            <img src="/regalo.png" alt=""  width="30px">
+        </a>
+        <p> Haz click en el regalo</p>
+    </div>
+</body>
+</html>

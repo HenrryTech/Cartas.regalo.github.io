@@ -1,0 +1,96 @@
+<!-- ...existing code... -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sé que si</title>
+    <style>
+        /* Layout básico */
+        :root{
+            --bg: #fff8fb;
+            --card-bg: rgba(255,255,255,0.9);
+            --text: #2b2b2b;
+            --accent: #ff6b8a;
+        }
+        html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:24px;color:var(--text);}
+
+        /* Card y animación de entrada (sorpresa) */
+        .card{
+            max-width:720px;
+            width:100%;
+            background:var(--card-bg);
+            border-radius:16px;
+            padding:28px;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.12);
+            text-align:center;
+            transform-origin:50% 70%;
+            transform: scale(0.78) rotate(-6deg) translateY(40px);
+            opacity:0;
+            filter:blur(6px);
+            transition: transform 700ms cubic-bezier(.2,.95,.2,1), opacity 420ms ease, filter 620ms ease;
+            border:1px solid rgba(255,105,140,0.08);
+        }
+        .card.show{
+            transform: scale(1) rotate(0) translateY(0);
+            opacity:1;
+            filter:blur(0);
+        }
+
+        h1{margin:0 0 8px 0;font-size:1.8rem;color:var(--text)}
+        p{margin:8px 0 0 0;font-size:1rem;color:rgba(43,43,43,0.85)}
+
+        /* p oculto: "escondido pero visible" - débil, parcialmente oculto */
+        #oculto{
+            display:inline-block;
+            color:rgba(43,43,43,0.4);       /* muy tenue */
+            font-style:italic;
+            max-height:1.2em;                /* limita la altura para dar sensación de "escondido" */
+            overflow:hidden;
+            transform:translateY(4px);
+            filter: blur(.4px);
+            transition: color 360ms ease, max-height 380ms ease, filter 300ms ease;
+            user-select:none;
+        }
+        /* opcional: al hacer foco/hover en la tarjeta se puede "asomar" un poco más */
+        .card:hover #oculto,
+        .card:focus-within #oculto{
+            color:rgba(43,43,43,0.2);
+            max-height:2.6em;
+            filter: blur(0);
+        }
+
+        /* pequeño detalle: pulso leve del título cuando aparece */
+        .card.show h1{
+            animation: titlePulse 900ms cubic-bezier(.2,.95,.2,1);
+        }
+        @keyframes titlePulse{
+            0%{transform: scale(.98)}
+            60%{transform: scale(1.02)}
+            100%{transform: scale(1)}
+        }
+
+        @media (max-width:520px){
+            .card{padding:20px}
+            h1{font-size:1.2rem}
+        }
+    </style>
+</head>
+<body>
+        <div class="card" role="region" aria-live="polite">
+            <h1>Feliz cumpleaños  <strong>preciosa 🥳🥳</strong></h1>
+                <p>¡Que te la pases super bien!</p>
+                <p id="oculto">(volvamos a intentarlo mi amor)</p>
+        </div>
+
+    <script>
+        // animación de entrada al cargar: añade la clase .show con pequeño retardo para efecto sorpresa
+        document.addEventListener('DOMContentLoaded', function(){
+            const card = document.querySelector('.card');
+            // retardo para dramatizar la sorpresa
+            setTimeout(() => card.classList.add('show'), 420);
+        });
+    </script>
+</body>
+</html>
+<!-- ...existing code... -->
